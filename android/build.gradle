@@ -3,15 +3,21 @@ ext {
     androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.6.1'
     androidxJunitVersion = project.hasProperty('androidxJunitVersion') ? rootProject.ext.androidxJunitVersion : '1.1.5'
     androidxEspressoCoreVersion = project.hasProperty('androidxEspressoCoreVersion') ? rootProject.ext.androidxEspressoCoreVersion : '3.5.1'
+    firebaseMessagingVersion = project.hasProperty('firebaseMessagingVersion') ? rootProject.ext.firebaseMessagingVersion : '23.1.2'
 }
 
 buildscript {
     repositories {
         google()
         mavenCentral()
+        jcenter()
+        maven {
+            url "https://linphone.org/maven_repository"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.0.0'
+        //        classpath 'com.google.gms:google-services:4.3.4' // TODO review FCM
     }
 }
 
@@ -45,6 +51,11 @@ android {
 repositories {
     google()
     mavenCentral()
+    jcenter()
+    // We need to declare this repository to be able to use Liblinphone SDK
+    maven {
+        url "https://linphone.org/maven_repository"
+    }
 }
 
 
@@ -55,4 +66,25 @@ dependencies {
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+
+    /*
+    Audio focus
+Correct handling of audio focus as also been added to liblinphone, from the ringtone to the calls and also for echo tester & echo canceller calibration.
+It is completely automatic, you only need to add the following dependency in your app's build.gradle file (and maybe remove any code in your app you may already have to do that):
+     */
+    implementation 'androidx.media:media:1.2.0'
+
+    // allin
+//    implementation 'org.linphone:linphone-sdk-android:5.2.45'
+
+    // For the no-video builds, use
+//    debugImplementation "org.linphone:linphone-sdk-android-debug:5.2.45"
+//    releaseImplementation "org.linphone:linphone-sdk-android:5.2.45"
+// If you want the smallest AAR available (with most of the features being disabled to gain some space such as video, advanced IM, sqlite, vCard, MKV, plugins, etc...):
+    debugImplementation "org.linphone.minimal:linphone-sdk-android-debug:5.2.45"
+    releaseImplementation "org.linphone.minimal:linphone-sdk-android:5.2.45"
+
+    // Required for firebase push notifications
+    //    implementation 'com.google.firebase:firebase-messaging:19.0.1'
+    implementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
 }

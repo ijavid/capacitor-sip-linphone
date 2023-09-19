@@ -1,7 +1,7 @@
 {
-  "name": "capacitor-sip-linphone",
+  "name": "@ijavid/capacitor-sip-linphone",
   "version": "0.0.1",
-  "description": "Capacitor Plugin for SIP intergration using linphone SDK and CallKit",
+  "description": "Capacitor Plugin for SIP integration using linphone SDK and CallKit",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -11,7 +11,7 @@
     "android/build.gradle",
     "dist/",
     "ios/Plugin/",
-    "CapacitorSipLinphone.podspec"
+    "IjavidCapacitorSipLinphone.podspec"
   ],
   "author": "david.pszota@gmail.com",
   "license": "MIT",
